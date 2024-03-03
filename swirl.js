@@ -361,7 +361,7 @@ const observer = new IntersectionObserver(entries => {
         }
     });
 
-    console.log('Visibility : ', visibilityArray);
+    // for handling race condition
     if(visibilityArray.some(visible => !!visible)) resumeAnimation();
     else pauseAnimation();
 });
