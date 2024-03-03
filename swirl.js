@@ -1,24 +1,21 @@
-const { PI, cos, sin, abs, sqrt, pow, round, random, atan2 } = Math;
-const HALF_PI = 0.5 * PI;
+// Animation starts when elements with class name 'play-background-animation' are visible
+const targetElements = document.querySelectorAll('.play-background-animation');
+
+const particleCount = 300;
+
+const { PI, cos, sin, abs, sqrt, pow, random, atan2 } = Math;
 const TAU = 2 * PI;
-const TO_RAD = PI / 180;
-const floor = n => n | 0;
 const rand = n => n * random();
-const randIn = (min, max) => rand(max - min) + min;
 const randRange = n => n - rand(2 * n);
-const fadeIn = (t, m) => t / m;
-const fadeOut = (t, m) => (m - t) / m;
 const fadeInOut = (t, m) => {
-	let hm = 0.5 * m;
-	return abs((t + hm) % m - hm) / (hm);
+    let hm = 0.5 * m;
+    return abs((t + hm) % m - hm) / (hm);
 };
-const dist = (x1, y1, x2, y2) => sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
-const angle = (x1, y1, x2, y2) => atan2(y2 - y1, x2 - x1);
 const lerp = (n1, n2, speed) => (1 - speed) * n1 + speed * n2;
 
 
 
-!function() {
+!function () {
     "use strict";
     var r = .5 * (Math.sqrt(3) - 1),
         e = (3 - Math.sqrt(3)) / 6,
@@ -27,40 +24,40 @@ const lerp = (n1, n2, speed) => (1 - speed) * n1 + speed * n2;
         o = (5 - Math.sqrt(5)) / 20;
     function i(r) {
         var e;
-        e = "function" == typeof r ? r : r ? function() {
+        e = "function" == typeof r ? r : r ? function () {
             var r = 0,
                 e = 0,
                 t = 0,
                 a = 1,
-                o = (i = 4022871197, function(r) {
+                o = (i = 4022871197, function (r) {
                     r = r.toString();
                     for (var e = 0; e < r.length; e++) {
                         var t = .02519603282416938 * (i += r.charCodeAt(e));
                         t -= i = t >>> 0,
-                        i = (t *= i) >>> 0,
-                        i += 4294967296 * (t -= i)
+                            i = (t *= i) >>> 0,
+                            i += 4294967296 * (t -= i)
                     }
                     return 2.3283064365386963e-10 * (i >>> 0)
                 });
             var i;
             r = o(" "),
-            e = o(" "),
-            t = o(" ");
+                e = o(" "),
+                t = o(" ");
             for (var n = 0; n < arguments.length; n++)
                 (r -= o(arguments[n])) < 0 && (r += 1),
-                (e -= o(arguments[n])) < 0 && (e += 1),
-                (t -= o(arguments[n])) < 0 && (t += 1);
-            return o = null, function() {
+                    (e -= o(arguments[n])) < 0 && (e += 1),
+                    (t -= o(arguments[n])) < 0 && (t += 1);
+            return o = null, function () {
                 var o = 2091639 * r + 2.3283064365386963e-10 * a;
                 return r = e, e = t, t = o - (a = 0 | o)
             }
         }(r) : Math.random,
-        this.p = n(e),
-        this.perm = new Uint8Array(512),
-        this.permMod12 = new Uint8Array(512);
+            this.p = n(e),
+            this.perm = new Uint8Array(512),
+            this.permMod12 = new Uint8Array(512);
         for (var t = 0; t < 512; t++)
             this.perm[t] = this.p[255 & t],
-            this.permMod12[t] = this.perm[t] % 12
+                this.permMod12[t] = this.perm[t] % 12
     }
     function n(r) {
         var e,
@@ -71,14 +68,14 @@ const lerp = (n1, n2, speed) => (1 - speed) * n1 + speed * n2;
             var a = e + ~~(r() * (256 - e)),
                 o = t[e];
             t[e] = t[a],
-            t[a] = o
+                t[a] = o
         }
         return t
     }
     i.prototype = {
         grad3: new Float32Array([1, 1, 0, -1, 1, 0, 1, -1, 0, -1, -1, 0, 1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, -1, 0, 1, 1, 0, -1, 1, 0, 1, -1, 0, -1, -1]),
         grad4: new Float32Array([0, 1, 1, 1, 0, 1, 1, -1, 0, 1, -1, 1, 0, 1, -1, -1, 0, -1, 1, 1, 0, -1, 1, -1, 0, -1, -1, 1, 0, -1, -1, -1, 1, 0, 1, 1, 1, 0, 1, -1, 1, 0, -1, 1, 1, 0, -1, -1, -1, 0, 1, 1, -1, 0, 1, -1, -1, 0, -1, 1, -1, 0, -1, -1, 1, 1, 0, 1, 1, 1, 0, -1, 1, -1, 0, 1, 1, -1, 0, -1, -1, 1, 0, 1, -1, 1, 0, -1, -1, -1, 0, 1, -1, -1, 0, -1, 1, 1, 1, 0, 1, 1, -1, 0, 1, -1, 1, 0, 1, -1, -1, 0, -1, 1, 1, 0, -1, 1, -1, 0, -1, -1, 1, 0, -1, -1, -1, 0]),
-        noise2D: function(t, a) {
+        noise2D: function (t, a) {
             var o,
                 i,
                 n = this.permMod12,
@@ -117,7 +114,7 @@ const lerp = (n1, n2, speed) => (1 - speed) * n1 + speed * n2;
             }
             return 70 * (v + h + l)
         },
-        noise3D: function(r, e, a) {
+        noise3D: function (r, e, a) {
             var o,
                 i,
                 n,
@@ -182,7 +179,7 @@ const lerp = (n1, n2, speed) => (1 - speed) * n1 + speed * n2;
             }
             return 32 * (o + i + n + f)
         },
-        noise4D: function(r, e, t, i) {
+        noise4D: function (r, e, t, i) {
             var n,
                 f,
                 s,
@@ -217,11 +214,11 @@ const lerp = (n1, n2, speed) => (1 - speed) * n1 + speed * n2;
                 B = 0,
                 E = 0;
             P > T ? k++ : z++,
-            P > _ ? k++ : B++,
-            P > j ? k++ : E++,
-            T > _ ? z++ : B++,
-            T > j ? z++ : E++,
-            _ > j ? B++ : E++;
+                P > _ ? k++ : B++,
+                P > j ? k++ : E++,
+                T > _ ? z++ : B++,
+                T > j ? z++ : E++,
+                _ > j ? B++ : E++;
             var G = P - (l = k >= 3 ? 1 : 0) + o,
                 H = T - (u = z >= 3 ? 1 : 0) + o,
                 I = _ - (d = B >= 3 ? 1 : 0) + o,
@@ -280,12 +277,12 @@ const lerp = (n1, n2, speed) => (1 - speed) * n1 + speed * n2;
             return 27 * (n + f + s + v + h)
         }
     },
-    i._buildPermutationTable = n,
-    "undefined" != typeof define && define.amd && define(function() {
-        return i
-    }),
-    "undefined" != typeof exports ? exports.SimplexNoise = i : "undefined" != typeof window && (window.SimplexNoise = i),
-    "undefined" != typeof module && (module.exports = i)
+        i._buildPermutationTable = n,
+        "undefined" != typeof define && define.amd && define(function () {
+            return i
+        }),
+        "undefined" != typeof exports ? exports.SimplexNoise = i : "undefined" != typeof window && (window.SimplexNoise = i),
+        "undefined" != typeof module && (module.exports = i)
 }();
 
 
@@ -294,7 +291,6 @@ const lerp = (n1, n2, speed) => (1 - speed) * n1 + speed * n2;
 
 'use strict';
 
-const particleCount = 300;
 const particlePropCount = 9;
 const particlePropsLength = particleCount * particlePropCount;
 const rangeY = 100;
@@ -316,185 +312,213 @@ let container;
 let canvas;
 let ctx;
 let center;
-let gradient;
 let tick;
 let simplex;
 let particleProps;
-let positions;
-let velocities;
-let lifeSpans;
-let speeds;
-let sizes;
-let hues;
+let animationPaused = false;
+
+function pauseAnimation() {
+    animationPaused = true;
+}
+
+function resumeAnimation() {
+    animationPaused = false;
+    draw(); // Resume animation loop
+}
+
+
+function draw() {
+    // Stop animation if not active
+    if (!!animationPaused) {
+        return;
+    }
+
+    tick++;
+
+    ctx.a.clearRect(0, 0, canvas.a.width, canvas.a.height);
+
+    ctx.b.fillStyle = backgroundColor;
+    ctx.b.fillRect(0, 0, canvas.a.width, canvas.a.height);
+
+    drawParticles();
+    renderGlow();
+    renderToScreen();
+
+    window.requestAnimationFrame(draw);
+}
+
+
+// Track elements when the html element is visible
+const observer = new IntersectionObserver(entries => {
+    // Callback function to handle visiblity changes
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            console.log('Element is visible');
+            resumeAnimation(); // Resume animation when page becomes visible
+        } else {
+            console.log('Element is not visible');
+            pauseAnimation(); // Pause animation when page is not visible
+        }
+    });
+});
+
+// Start observing the target element - when visible
+targetElements.forEach(target => observer.observe(target));
 
 function setup() {
-	createCanvas();
-  resize();
-  initParticles();
-	draw();
+    createCanvas();
+    resize();
+    initParticles();
+    draw();
 }
 
 function initParticles() {
-  tick = 0;
-  simplex = new SimplexNoise();
-  particleProps = new Float32Array(particlePropsLength);
+    tick = 0;
+    simplex = new SimplexNoise();
+    particleProps = new Float32Array(particlePropsLength);
 
-  let i;
-  
-  for (i = 0; i < particlePropsLength; i += particlePropCount) {
-    initParticle(i);
-  }
+    let i;
+
+    for (i = 0; i < particlePropsLength; i += particlePropCount) {
+        initParticle(i);
+    }
 }
 
 function initParticle(i) {
-  let x, y, vx, vy, life, ttl, speed, radius, hue;
+    let x, y, vx, vy, life, ttl, speed, radius, hue;
 
-  x = rand(canvas.a.width);
-  y = center[1] + randRange(rangeY);
-  vx = 0;
-  vy = 0;
-  life = 0;
-  ttl = baseTTL + rand(rangeTTL);
-  speed = baseSpeed + rand(rangeSpeed);
-  radius = baseRadius + rand(rangeRadius);
-  hue = baseHue + rand(rangeHue);
+    x = rand(canvas.a.width);
+    y = center[1] + randRange(rangeY);
+    vx = 0;
+    vy = 0;
+    life = 0;
+    ttl = baseTTL + rand(rangeTTL);
+    speed = baseSpeed + rand(rangeSpeed);
+    radius = baseRadius + rand(rangeRadius);
+    hue = baseHue + rand(rangeHue);
 
-  particleProps.set([x, y, vx, vy, life, ttl, speed, radius, hue], i);
+    particleProps.set([x, y, vx, vy, life, ttl, speed, radius, hue], i);
 }
 
 function drawParticles() {
-  let i;
+    let i;
 
-  for (i = 0; i < particlePropsLength; i += particlePropCount) {
-    updateParticle(i);
-  }
+    for (i = 0; i < particlePropsLength; i += particlePropCount) {
+        updateParticle(i);
+    }
 }
 
 function updateParticle(i) {
-  let i2=1+i, i3=2+i, i4=3+i, i5=4+i, i6=5+i, i7=6+i, i8=7+i, i9=8+i;
-  let n, x, y, vx, vy, life, ttl, speed, x2, y2, radius, hue;
+    let i2 = 1 + i, i3 = 2 + i, i4 = 3 + i, i5 = 4 + i, i6 = 5 + i, i7 = 6 + i, i8 = 7 + i, i9 = 8 + i;
+    let n, x, y, vx, vy, life, ttl, speed, x2, y2, radius, hue;
 
-  x = particleProps[i];
-  y = particleProps[i2];
-  n = simplex.noise3D(x * xOff, y * yOff, tick * zOff) * noiseSteps * TAU;
-  vx = lerp(particleProps[i3], cos(n), 0.5);
-  vy = lerp(particleProps[i4], sin(n), 0.5);
-  life = particleProps[i5];
-  ttl = particleProps[i6];
-  speed = particleProps[i7];
-  x2 = x + vx * speed;
-  y2 = y + vy * speed;
-  radius = particleProps[i8];
-  hue = particleProps[i9];
+    x = particleProps[i];
+    y = particleProps[i2];
+    n = simplex.noise3D(x * xOff, y * yOff, tick * zOff) * noiseSteps * TAU;
+    vx = lerp(particleProps[i3], cos(n), 0.5);
+    vy = lerp(particleProps[i4], sin(n), 0.5);
+    life = particleProps[i5];
+    ttl = particleProps[i6];
+    speed = particleProps[i7];
+    x2 = x + vx * speed;
+    y2 = y + vy * speed;
+    radius = particleProps[i8];
+    hue = particleProps[i9];
 
-  drawParticle(x, y, x2, y2, life, ttl, radius, hue);
+    drawParticle(x, y, x2, y2, life, ttl, radius, hue);
 
-  life++;
+    life++;
 
-  particleProps[i] = x2;
-  particleProps[i2] = y2;
-  particleProps[i3] = vx;
-  particleProps[i4] = vy;
-  particleProps[i5] = life;
+    particleProps[i] = x2;
+    particleProps[i2] = y2;
+    particleProps[i3] = vx;
+    particleProps[i4] = vy;
+    particleProps[i5] = life;
 
-  (checkBounds(x, y) || life > ttl) && initParticle(i);
+    (checkBounds(x, y) || life > ttl) && initParticle(i);
 }
 
 function drawParticle(x, y, x2, y2, life, ttl, radius, hue) {
-  ctx.a.save();
-  ctx.a.lineCap = 'round';
-  ctx.a.lineWidth = radius;
-  ctx.a.strokeStyle = `hsla(${hue},100%,60%,${fadeInOut(life, ttl)})`;
-  ctx.a.beginPath();
-  ctx.a.moveTo(x, y);
-  ctx.a.lineTo(x2, y2);
-  ctx.a.stroke()
-  ctx.a.closePath();
-  ctx.a.restore();
+    ctx.a.save();
+    ctx.a.lineCap = 'round';
+    ctx.a.lineWidth = radius;
+    ctx.a.strokeStyle = `hsla(${hue},100%,60%,${fadeInOut(life, ttl)})`;
+    ctx.a.beginPath();
+    ctx.a.moveTo(x, y);
+    ctx.a.lineTo(x2, y2);
+    ctx.a.stroke()
+    ctx.a.closePath();
+    ctx.a.restore();
 }
 
 function checkBounds(x, y) {
-	return(
-		x > canvas.a.width ||
-		x < 0 ||
-		y > canvas.a.height ||
-		y < 0
-	);
+    return (
+        x > canvas.a.width ||
+        x < 0 ||
+        y > canvas.a.height ||
+        y < 0
+    );
 }
 
 function createCanvas() {
-  container = document.querySelector('.content--canvas');
-	canvas = {
-		a: document.createElement('canvas'),
-		b: document.createElement('canvas')
-	};
-	canvas.b.style = `
+    container = document.querySelector('.content--canvas');
+    canvas = {
+        a: document.createElement('canvas'),
+        b: document.createElement('canvas')
+    };
+    canvas.b.style = `
 		position: fixed;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
 	`;
-	container.appendChild(canvas.b);
-	ctx = {
-		a: canvas.a.getContext('2d'),
-		b: canvas.b.getContext('2d')
-  };
-  center = [];
+    container.appendChild(canvas.b);
+    ctx = {
+        a: canvas.a.getContext('2d'),
+        b: canvas.b.getContext('2d')
+    };
+    center = [];
 }
 
 function resize() {
-	const { innerWidth, innerHeight } = window;
-	
-	canvas.a.width = innerWidth;
-  canvas.a.height = innerHeight;
+    const { innerWidth, innerHeight } = window;
 
-//   ctx.a.drawImage(canvas.b, 0, 0);
+    canvas.a.width = innerWidth;
+    canvas.a.height = innerHeight;
 
-	canvas.b.width = innerWidth;
-  canvas.b.height = innerHeight;
-  
-//   ctx.b.drawImage(canvas.a, 0, 0);
+    //   ctx.a.drawImage(canvas.b, 0, 0);
 
-  center[0] = 0.5 * canvas.a.width;
-  center[1] = 0.5 * canvas.a.height;
+    canvas.b.width = innerWidth;
+    canvas.b.height = innerHeight;
+
+    //   ctx.b.drawImage(canvas.a, 0, 0);
+
+    center[0] = 0.5 * canvas.a.width;
+    center[1] = 0.5 * canvas.a.height;
 }
 
 function renderGlow() {
-  ctx.b.save();
-  ctx.b.filter = 'blur(8px) brightness(200%)';
-  ctx.b.globalCompositeOperation = 'lighter';
-  ctx.b.drawImage(canvas.a, 0, 0);
-  ctx.b.restore();
+    ctx.b.save();
+    ctx.b.filter = 'blur(8px) brightness(200%)';
+    ctx.b.globalCompositeOperation = 'lighter';
+    ctx.b.drawImage(canvas.a, 0, 0);
+    ctx.b.restore();
 
-  ctx.b.save();
-  ctx.b.filter = 'blur(4px) brightness(200%)';
-  ctx.b.globalCompositeOperation = 'lighter';
-  ctx.b.drawImage(canvas.a, 0, 0);
-  ctx.b.restore();
+    ctx.b.save();
+    ctx.b.filter = 'blur(4px) brightness(200%)';
+    ctx.b.globalCompositeOperation = 'lighter';
+    ctx.b.drawImage(canvas.a, 0, 0);
+    ctx.b.restore();
 }
 
 function renderToScreen() {
-  ctx.b.save();
-  ctx.b.globalCompositeOperation = 'lighter';
-  ctx.b.drawImage(canvas.a, 0, 0);
-  ctx.b.restore();
+    ctx.b.save();
+    ctx.b.globalCompositeOperation = 'lighter';
+    ctx.b.drawImage(canvas.a, 0, 0);
+    ctx.b.restore();
 }
 
-function draw() {
-  tick++;
-
-  ctx.a.clearRect(0, 0, canvas.a.width, canvas.a.height);
-
-  ctx.b.fillStyle = backgroundColor;
-  ctx.b.fillRect(0, 0, canvas.a.width, canvas.a.height);
-
-  drawParticles();
-  renderGlow();
-  renderToScreen();
-
-	window.requestAnimationFrame(draw);
-}
 
 window.addEventListener('load', setup);
 window.addEventListener('resize', resize);
