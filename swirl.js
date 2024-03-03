@@ -1,7 +1,7 @@
 // Animation starts when elements with class name 'play-background-animation' are visible
 const playAnimationWhenVisibleElements = document.querySelectorAll('.play-background-animation');
 const pauseAnimationOnHoverElements = document.querySelectorAll('.pause-animation-on-hover');
-const particleCount = 700;
+const particleCount = 900;
 
 const { PI, cos, sin, abs, sqrt, pow, random, atan2 } = Math;
 const TAU = 2 * PI;
@@ -353,10 +353,10 @@ function draw() {
 const observer = new IntersectionObserver(entries => {
     // Callback function to handle visiblity changes
     entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            resumeAnimation();
-        } else {
+        if (!entry.isIntersecting) {
             pauseAnimation();
+        } else {
+            resumeAnimation();
         }
     });
 });
