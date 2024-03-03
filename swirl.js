@@ -1,7 +1,7 @@
 // Animation starts when elements with class name 'play-background-animation' are visible
-const targetElements = document.querySelectorAll('.play-background-animation');
-
-const particleCount = 300;
+const playAnimationWhenVisibleElements = document.querySelectorAll('.play-background-animation');
+const pauseAnimationOnHoverElements = document.querySelectorAll('.pause-animation-on-hover');
+const particleCount = 700;
 
 const { PI, cos, sin, abs, sqrt, pow, random, atan2 } = Math;
 const TAU = 2 * PI;
@@ -349,21 +349,32 @@ function draw() {
 
 
 // Track elements when the html element is visible
+// Resume animation when page becomes visible; otherwise pause animation
 const observer = new IntersectionObserver(entries => {
     // Callback function to handle visiblity changes
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            console.log('Element is visible');
-            resumeAnimation(); // Resume animation when page becomes visible
+            resumeAnimation();
         } else {
-            console.log('Element is not visible');
-            pauseAnimation(); // Pause animation when page is not visible
+            pauseAnimation();
         }
     });
 });
 
-// Start observing the target element - when visible
-targetElements.forEach(target => observer.observe(target));
+// Start observing the target element - play animation when element is visible
+playAnimationWhenVisibleElements.forEach(target => observer.observe(target));
+
+// Pause animation when element is onHover
+// Add event listeners for mouseenter and mouseleave
+pauseAnimationOnHoverElements.forEach(element => {
+    element.addEventListener('mouseenter', () => {
+        resumeAnimation();
+    });
+
+    element.addEventListener('mouseleave', () => {
+        pauseAnimation();
+    });
+});
 
 function setup() {
     createCanvas();
