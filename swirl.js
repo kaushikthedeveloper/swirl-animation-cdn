@@ -368,11 +368,11 @@ playAnimationWhenVisibleElements.forEach(target => observer.observe(target));
 // Add event listeners for mouseenter and mouseleave
 pauseAnimationOnHoverElements.forEach(element => {
     element.addEventListener('mouseenter', () => {
-        resumeAnimation();
+        pauseAnimation();
     });
 
     element.addEventListener('mouseleave', () => {
-        pauseAnimation();
+        resumeAnimation();
     });
 });
 
