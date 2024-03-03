@@ -351,14 +351,19 @@ function draw() {
 // Track elements when the html element is visible
 // Resume animation when page becomes visible; otherwise pause animation
 const observer = new IntersectionObserver(entries => {
+    let visibilityArray = [];
     // Callback function to handle visiblity changes
     entries.forEach(entry => {
-        if (!entry.isIntersecting) {
-            pauseAnimation();
+        if (entry.isIntersecting) {
+            visibilityArray.push(true);
         } else {
-            resumeAnimation();
+            visibilityArray.push(false);
         }
     });
+
+    console.log('Visibility : ', visibilityArray);
+    if(visibilityArray.some(visible => !!visible)) resumeAnimation();
+    else pauseAnimation();
 });
 
 // Start observing the target element - play animation when element is visible
