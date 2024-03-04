@@ -1,7 +1,7 @@
 // Animation starts when elements with class name 'play-background-animation' are visible
 const playAnimationWhenVisibleElements = document.querySelectorAll('.play-background-animation');
 const pauseAnimationOnHoverElements = document.querySelectorAll('.pause-animation-on-hover');
-const particleCount = 900;
+const particleCount = 500;
 
 const { PI, cos, sin, abs, sqrt, pow, random, atan2 } = Math;
 const TAU = 2 * PI;
